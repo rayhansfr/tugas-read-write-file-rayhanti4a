@@ -37,13 +37,12 @@
             android:layout_gravity="center"
             />
 
-        <ListView
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_marginVertical="20dp"
             android:paddingHorizontal="20dp"
-            android:id="@+id/listViewFile"
+            android:id="@+id/recyclerViewFile"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 
