@@ -1,5 +1,6 @@
 package com.example.tugasreadwritefile
 
+import android.content.Intent
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.view.LayoutInflater
@@ -22,7 +23,17 @@ class FileListAdapter(
 
     override fun onBindViewHolder(holder: FileViewHolder, position: Int) {
         val file = fileList[position]
-        holder.bind(file)
+        holder.fileName.text = file.name
+        holder.lastModified.text = formatDate(file.lastModified())
+
+        holder.itemView.setOnClickListener {
+            val context = holder.itemView.context
+            val intent = Intent(context, DetailNoteActivity::class.java).apply {
+                putExtra("FILE_NAME", file.name)
+                putExtra("FILE_PATH", file.absolutePath)
+            }
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -42,8 +53,8 @@ class FileListAdapter(
     }
 
     inner class FileViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val fileName: TextView = itemView.findViewById(R.id.txtFileName)
-        private val lastModified: TextView = itemView.findViewById(R.id.txtLastModified)
+        val fileName: TextView = itemView.findViewById(R.id.txtFileName)
+        val lastModified: TextView = itemView.findViewById(R.id.txtLastModified)
 
         fun bind(file: File) {
             fileName.text = file.name
@@ -54,6 +65,7 @@ class FileListAdapter(
                 true
             }
         }
+
     }
 
 
